@@ -29,7 +29,8 @@ app.post('/login', (req, res) => {
 
 app.use('/books', booksRouter);
 
-const PORT = process.env.PORT || 7000;
+//const PORT = process.env.PORT || 7000;
+const PORT = 7000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

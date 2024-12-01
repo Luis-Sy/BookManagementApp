@@ -1,5 +1,6 @@
 import Input from './Input.js'
-import { useReducer} from 'react'
+import { useReducer, useRef, useState} from 'react'
+import DialogModal from './dialogModal.js'
 
 const initialState = {
     username: '',
@@ -22,7 +23,13 @@ function reducer(state, action){
 }
 const AdminLogin = ()=>{
     const [state, dispatch] = useReducer(reducer, initialState)
+	const [dialogMessage, setDialogMessage] = 
+	useState({
+		"header": "",
+		"body": ""
+	})
 	
+	const dialog = useRef();
 	
     const handleChange=(e)=>{
         dispatch({
@@ -63,6 +70,8 @@ async function tryLogin(data) {
     console.log("Login successful, token stored:", responseData.token);
   } catch (error) {
     console.error("Error:", error);
+	setDialogMessage({"header": "Login Error", "body": "Invalid login credentials."})
+	dialog.current.showModal();
   }
 }
 
@@ -78,12 +87,15 @@ async function tryLogin(data) {
     }
 	
     return(
+		<>
+		{<DialogModal ref={dialog} header={dialogMessage.header} body={dialogMessage.body}/>}
         <form onSubmit={handleSubmit}>
-            <Input label="Username" name="username" value={state.username} onChange={handleChange}/>
-            <Input label="Password" name="password" value={state.password} onChange={handleChange}/>
+            <Input label="Username" name="username" value={state.username} onChange={handleChange} type="text"/>
+            <Input label="Password" name="password" value={state.password} onChange={handleChange} type="password"/>
             <button type="submit">Submit</button>
             <button type="button" onClick={handleReset}>Reset</button>
         </form>
+		</>
     )
 }
 export default AdminLogin

@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,15 +13,18 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+dialog {
+  width: 80%; /* Adjust the width as needed */
+  max-width: 500px; /* Optional: Limit max width */
+  height: auto; /* Let height adjust based on content */
+  position: fixed; /* Fixed position to center the dialog */
+  top: 50%; /* Move the dialog to the vertical center */
+  left: 50%; /* Move the dialog to the horizontal center */
+  transform: translate(-70%, -50%); /* Offset the position by 50% of its size */
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow for better visual effect */
+  border-radius: 8px; /* Optional: rounded corners */
+  z-index: 1000; /* Make sure the dialog appears on top of other content */
 }

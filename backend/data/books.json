@@ -398,5 +398,21 @@
     "description": "A spiritual novel that follows the journey of a young man in ancient India seeking enlightenment.",
     "publicationDate": "1922-09-06",
     "coverImage": "https://books.google.ca/books/content?id=putbK6p2o4sC&pg=PP1&img=1&zoom=3&hl=en&bul=1&sig=ACfU3U2HtTGnl5eABPpeH0BUEC5nh3lRWQ&w=1280"
+  },
+  {
+    "id": 51,
+    "title": "New Book",
+    "author": "New Author",
+    "description": "New Description",
+    "publicationDate": "2024-10-24",
+    "coverImage": "I don't have a URL"
+  },
+  {
+    "id": 52,
+    "title": "New Book2",
+    "author": "New Author2",
+    "description": "New Description2",
+    "publicationDate": "2024-10-24",
+    "coverImage": "I don't have a URL2"
   }
 ]

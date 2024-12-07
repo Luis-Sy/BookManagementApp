@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./BookDetails.css";
+
 const BookDetails = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`http://localhost:7000/books/${id}`)
       .then((response) => response.json())
@@ -28,7 +29,10 @@ const BookDetails = () => {
   }
 
   return (
+    <>
+    <button onClick={() => navigate("/")}>Home</button>
     <div className="book-details">
+      
       <div className="book-details-container">
         <img
           src={book.coverImage}
@@ -47,6 +51,7 @@ const BookDetails = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

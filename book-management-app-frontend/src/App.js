@@ -19,11 +19,12 @@ function App() {
 	<AdminLogin />
 	
 	<BrowserRouter>
-      <Routes>
-        <Route path="/" element={<BookList />} />
-        <Route path="/books/:id" element={<BookDetails />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<BookList />} />
+      <Route path="/books/:id" element={<BookDetails />} />
+    </Routes>
+  </BrowserRouter>
+	
     </div>
   );
 }

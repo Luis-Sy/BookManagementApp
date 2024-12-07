@@ -1,0 +1,35 @@
+.book-details {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .book-details-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    max-width: 800px;
+  }
+  
+  .book-cover {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .book-info {
+    flex: 1;
+  }
+  
+  .book-info h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .book-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  

@@ -2,16 +2,105 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Global styles */
+body {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+/* Header */
+header {
+  background-color: #111; /* Slightly lighter black */
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+/* Buttons */
+button {
+  background-color: #333; /* Dark grey */
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+/* Links */
+a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #aaa; /* Light grey */
+}
+
+/* Forms */
+input,
+textarea {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* Footer */
+footer {
+  background-color: #111;
+  color: #888;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  header,
+  footer {
+    padding: 0.5rem;
+  }
+
+  button {
+    padding: 0.5rem;
+  }
+}
+
 
 dialog {
   width: 80%; /* Adjust the width as needed */

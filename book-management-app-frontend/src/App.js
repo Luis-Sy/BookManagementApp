@@ -1,12 +1,13 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react'
-import { BrowserRouter, Route, Routes, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import BookList from "./components/BookList";
 import BookDetails from "./components/BookDetails";
 import AdminLogin from './components/AdminLogin.js'
 import CreateBook from './components/CreateBook.js'
 import EditBook from './components/EditBook.js'
 import TopBar from './components/TopBar.js'
+import DeleteBook from './components/DeleteBook.js'
 import DialogModal from './components/dialogModal.js'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
       <Route path="/create" element={<CreateBook />} />
       <Route path="/books/:id" element={<BookDetails />} />
       <Route path="/books/edit/:id" element={<EditBook />} />
+      <Route path="/books/delete/:id" element={<DeleteBook />} />
 	  {/* default route to home*/}
 	  <Route path="*" element={<Navigate to="/" />} />
    </Routes>

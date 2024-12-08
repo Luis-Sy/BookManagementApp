@@ -1,6 +1,7 @@
 import Input from './Input'
-import { useReducer, useRef, useState} from 'react'
+import { useReducer, useRef, useState, useEffect} from 'react'
 import DialogModal from './dialogModal.js'
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
     title:"",
@@ -32,15 +33,17 @@ const CreateBook = ()=>{
 	})
 	
 	const dialog = useRef();
+	const navigate = useNavigate();
 	
 		// send a post request to server for adding a new book
 async function tryCreateNewBook(data) {
+	const token = localStorage.getItem("token");
   // request options
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-	  "authorization": `bearer ${localStorage.getItem("token")}`
+	  "authorization": `bearer ${token}`
     },
     body: JSON.stringify(data)
   };
@@ -53,14 +56,15 @@ async function tryCreateNewBook(data) {
 
     // Handle errors
     if (!response.ok) {
-      throw new Error("Could not submit Book Data");
-	  setDialogMessage({"header": "Submission Error", "body": "Could not submit Book Data to server."})
+		setDialogMessage({"header": "Submission Error", "body": "Could not submit Book Data to server."})
+		throw new Error("Could not submit Book Data");
     }
 	
 	// display success message
 	setDialogMessage({"header": "New Book Created", "body": "New Book data successfully submitted to the server."})
 	dialog.current.showModal();
-    
+    navigate("/");
+	
   } catch (error) {
     console.error("Error:", error);
 	dialog.current.showModal();
@@ -85,9 +89,17 @@ async function tryCreateNewBook(data) {
         dispatch({type: 'reset'})
     }
 	
+	useEffect(()=>{
+		if(!localStorage.getItem("token")){
+			alert("You are not authorized for this action");
+			navigate("/");
+		}
+	},[])
+	
     return(
 	<>
 		{<DialogModal ref={dialog} header={dialogMessage.header} body={dialogMessage.body}/>}
+		<button onClick={() => navigate("/")}>Home</button>
         <form onSubmit={handleSubmit}>
             <Input label="Title" name="title" value={state.title} onChange={handleChange}/>
             <Input label="Author" name="author" value={state.author} onChange={handleChange}/>

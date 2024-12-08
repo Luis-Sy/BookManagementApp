@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function TopBar({ userToken, onLogOut }) {
+	const navigate = useNavigate();
+	
   return (
     <>
       {!userToken ? (
@@ -13,6 +15,7 @@ function TopBar({ userToken, onLogOut }) {
         <div id="topBar">
           <h1>Logged in as Admin</h1>
           <button onClick={onLogOut}>Log Out</button>
+          <button onClick={() => {navigate("/create")}}>Create Book</button>
         </div>
       )}
     </>

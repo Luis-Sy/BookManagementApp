@@ -1,32 +1,10 @@
 import Input from './Input'
-import { useReducer, useRef, useState, useEffect} from 'react'
+import { useRef, useState, useEffect } from 'react'
 import DialogModal from './dialogModal.js'
 import { useNavigate, useParams } from "react-router-dom";
 
-const initialState = {
-    title:"",
-    author:"",
-    description:"",
-    publicationDate:"",
-    coverImage:"",
-}
-
-function reducer(state, action){
-    switch (action.type){
-        case 'updateField':
-            return {
-                ...state,
-                [action.field]:action.value
-            }
-        case 'reset':
-            return initialState
-        default:
-            return state
-    }
-}
-const EditBook = () =>{
+const DeleteBook = () =>{
 	const { id } = useParams();
-    const [state, dispatch] = useReducer(reducer, initialState)
 	const [dialogMessage, setDialogMessage] = 
 	useState({
 		"header": "",
@@ -38,17 +16,16 @@ const EditBook = () =>{
 	const navigate = useNavigate();
 	
 		// send a put request to server for editing an existing book
-async function tryUpdateBookData(data) {
+async function tryDeleteBookData() {
 	
 	const token = localStorage.getItem("token");
   // request options
   const options = {
-    method: "PUT",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
 	  "authorization": `bearer ${token}`
     },
-    body: JSON.stringify(data)
   };
   
   // api url
@@ -60,39 +37,20 @@ async function tryUpdateBookData(data) {
 
     // Handle errors
     if (!response.ok) {
-		setDialogMessage({"header": "Submission Error", "body": "Could not submit Book Data to server."})
+		setDialogMessage({"header": "Deletion Error", "body": "Could not delete Book Data from server."})
 		throw new Error("Could not submit Book Data"); 
     }
 	
 	// display success message
-	setDialogMessage({"header": "Update Success", "body": "Book Data has been updated successfully."})
+	setDialogMessage({"header": "Deletion Success", "body": "Book Data has been deleted successfully."})
 	dialog.current.showModal();
-	navigate(`/books/${id}`);
+	navigate("/");
     
   } catch (error) {
     console.error("Error:", error);
 	dialog.current.showModal();
   }
 }
-	
-    const handleChange=(e)=>{
-        dispatch({
-            type:'updateField',
-            field:e.target.name,
-            value:e.target.value
-        })
-    }
-	
-    const handleSubmit =(e)=>{
-        e.preventDefault()
-        console.log('Attempting to update Book data to server: ', state)
-		tryUpdateBookData(state)
-    }
-	
-    const handleReset=()=>{
-        dispatch({type: 'reset'})
-    }
-	
 	
 	useEffect(() => {
 		if(!localStorage.getItem("token")){
@@ -116,16 +74,8 @@ async function tryUpdateBookData(data) {
 	<>
 		{<DialogModal ref={dialog} header={dialogMessage.header} body={dialogMessage.body}/>}
 		<button onClick={() => navigate("/")}>Home</button>
-		<h1>Update Book Data</h1>
-        <form onSubmit={handleSubmit}>
-            <Input label="New Title" name="title" value={state.title} onChange={handleChange}/>
-            <Input label="New Author" name="author" value={state.author} onChange={handleChange}/>
-            <Input label="New Description" name="description" value={state.description} onChange={handleChange}/>
-            <Input label="New Publication Date" name="publicationDate" value={state.publicationDate} type="date" onChange={handleChange}/>
-            <Input label="New Cover Image URL" name="coverImage" value={state.coverImage} onChange={handleChange}/>
-            <button type="submit">Submit</button>
-            <button type="button" onClick={handleReset}>Reset</button>
-        </form>
+		<h1>Confirm Deletion of Book Data</h1>
+        <button onClick={tryDeleteBookData}>Confirm Deletion</button>
 		
 	{book ?
     <div className="book-details">
@@ -155,4 +105,4 @@ async function tryUpdateBookData(data) {
 		</>
     )
 }
-export default EditBook
+export default DeleteBook

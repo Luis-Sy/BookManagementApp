@@ -57,6 +57,16 @@ const BookList = () => {
             <h3>{book.title}</h3>
             <p><strong>Author:</strong> {book.author}</p>
             <Link to={`/books/${book.id}`}>View Details</Link>
+			{localStorage.getItem("token") ?
+			<>
+			<br/>
+			<Link to={`/books/edit/${book.id}`}>Edit Data</Link>
+			<br/>
+			<Link to={`/books/delete/${book.id}`}>Delete Book</Link>
+			</>
+			:
+			<></>
+			}
           </div>
         ))
       )}

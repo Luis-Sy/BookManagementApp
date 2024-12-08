@@ -71,6 +71,7 @@ async function tryLogin(data) {
     localStorage.setItem("token", responseData.token);
     console.log("Login successful, token stored:", responseData.token);
 	navigate("/");
+	window.location.reload();
   } catch (error) {
     console.error("Error:", error);
 	setDialogMessage({"header": "Login Error", "body": "Invalid login credentials."})
@@ -92,6 +93,7 @@ async function tryLogin(data) {
     return(
 		<>
 		{<DialogModal ref={dialog} header={dialogMessage.header} body={dialogMessage.body}/>}
+		<button onClick={() => navigate("/")}>Home</button>
         <form onSubmit={handleSubmit}>
             <Input label="Username" name="username" value={state.username} onChange={handleChange} type="text"/>
             <Input label="Password" name="password" value={state.password} onChange={handleChange} type="password"/>

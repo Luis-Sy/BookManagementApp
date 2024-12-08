@@ -1,5 +1,5 @@
 import Input from './Input'
-import { useReducer, useRef, useState} from 'react'
+import { useReducer, useRef, useState, useEffect} from 'react'
 import DialogModal from './dialogModal.js'
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -65,7 +65,7 @@ async function tryUpdateBookData(data) {
 	// display success message
 	setDialogMessage({"header": "Update Success", "body": "Book Data has been updated successfully."})
 	dialog.current.showModal();
-	navigate(`/books/${id}`):
+	navigate(`/books/${id}`);
     
   } catch (error) {
     console.error("Error:", error);
@@ -93,7 +93,7 @@ async function tryUpdateBookData(data) {
 	
 	
 	useEffect(() => {
-		if(!localStorage.getItem("token"){
+		if(!localStorage.getItem("token")){
 			alert("You are not authorized for this action");
 			navigate("/");
 		}
@@ -108,7 +108,7 @@ async function tryUpdateBookData(data) {
 		alert("Book does not exist");
 		navigate("/");
       });
-  }, [id]);
+  }, [id, navigate]);
 	
     return(
 	<>

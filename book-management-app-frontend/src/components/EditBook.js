@@ -1,6 +1,7 @@
 import Input from './Input'
 import { useReducer, useRef, useState} from 'react'
 import DialogModal from './dialogModal.js'
+import { useNavigate, useParams } from "react-router-dom";
 
 const initialState = {
     title:"",
@@ -23,29 +24,33 @@ function reducer(state, action){
             return state
     }
 }
-const CreateBook = ()=>{
+const EditBook = () =>{
+	const { id } = useParams();
     const [state, dispatch] = useReducer(reducer, initialState)
 	const [dialogMessage, setDialogMessage] = 
 	useState({
 		"header": "",
 		"body": ""
 	})
+	const [book, setBook] = useState(null);
 	
 	const dialog = useRef();
+	const navigate = useNavigate();
 	
-		// send a post request to server for adding a new book
-async function tryCreateNewBook(data) {
+		// send a put request to server for editing an existing book
+async function tryUpdateBookData(data) {
   // request options
   const options = {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
 	  "authorization": `bearer ${localStorage.getItem("token")}`
     },
     body: JSON.stringify(data)
   };
+  
   // api url
-  const url = "http://localhost:7000/books";
+  const url = `http://localhost:7000/books${id}`;
 
   try {
     // Make the request
@@ -58,8 +63,9 @@ async function tryCreateNewBook(data) {
     }
 	
 	// display success message
-	setDialogMessage({"header": "New Book Created", "body": "New Book data successfully submitted to the server."})
+	setDialogMessage({"header": "Update Success", "body": "Book Data has been updated successfully."})
 	dialog.current.showModal();
+	navigate(`/books/${id}`):
     
   } catch (error) {
     console.error("Error:", error);
@@ -77,17 +83,38 @@ async function tryCreateNewBook(data) {
 	
     const handleSubmit =(e)=>{
         e.preventDefault()
-        console.log('Attempting to submit new Book to server: ', state)
-		tryCreateNewBook(state)
+        console.log('Attempting to update Book data to server: ', state)
+		tryUpdateBookData(state)
     }
 	
     const handleReset=()=>{
         dispatch({type: 'reset'})
     }
 	
+	
+	useEffect(() => {
+		if(!localStorage.getItem("token"){
+			alert("You are not authorized for this action");
+			navigate("/");
+		}
+		
+    fetch(`http://localhost:7000/books/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBook(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching book details:", error);
+		alert("Book does not exist");
+		navigate("/");
+      });
+  }, [id]);
+	
     return(
 	<>
 		{<DialogModal ref={dialog} header={dialogMessage.header} body={dialogMessage.body}/>}
+		<button onClick={() => navigate("/")}>Home</button>
+		<h1>Update Book Data</h1>
         <form onSubmit={handleSubmit}>
             <Input label="Title" name="title" value={state.title} onChange={handleChange}/>
             <Input label="Author" name="author" value={state.author} onChange={handleChange}/>
@@ -97,7 +124,30 @@ async function tryCreateNewBook(data) {
             <button type="submit">Submit</button>
             <button type="button" onClick={handleReset}>Reset</button>
         </form>
+		
+		 
+    <div className="book-details">
+      
+      <div className="book-details-container">
+        <img
+          src={book.coverImage}
+          alt={`${book.title} cover`}
+          className="book-cover"
+        />
+        <div className="book-info">
+          <h1>{book.title}</h1>
+          <p>
+            <strong>Author:</strong> {book.author}
+          </p>
+          <p>{book.description}</p>
+          <p>
+            <strong>Publication Date:</strong> {book.publicationDate}
+          </p>
+        </div>
+      </div>
+    </div>
+		
 		</>
     )
 }
-export default CreateBook
+export default EditBook

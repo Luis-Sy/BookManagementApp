@@ -1,6 +1,7 @@
 import Input from './Input.js'
 import { useReducer, useRef, useState} from 'react'
 import DialogModal from './dialogModal.js'
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
     username: '',
@@ -30,6 +31,7 @@ const AdminLogin = ()=>{
 	})
 	
 	const dialog = useRef();
+	const navigate = useNavigate();
 	
     const handleChange=(e)=>{
         dispatch({
@@ -66,8 +68,9 @@ async function tryLogin(data) {
     const responseData = await response.json();
 
     // Store the token in localStorage
-    localStorage.setItem("token", responseData.token); // Ensure your backend returns a `token` field
+    localStorage.setItem("token", responseData.token);
     console.log("Login successful, token stored:", responseData.token);
+	navigate("/");
   } catch (error) {
     console.error("Error:", error);
 	setDialogMessage({"header": "Login Error", "body": "Invalid login credentials."})

@@ -103,6 +103,10 @@ async function tryUpdateBookData(data) {
     fetch(`http://localhost:7000/books/${id}`)
       .then((response) => response.json())
       .then((data) => {
+		  if(!data.id) {
+			  alert("Book not found")
+			  navigate("/")
+		  }
         setBook(data);
       })
       .catch((error) => {

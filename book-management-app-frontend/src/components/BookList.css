@@ -1,5 +1,5 @@
 .book-list-container {
-  padding: 20px;
+	padding: 20px;
 }
 
 .search-bar {
@@ -16,6 +16,10 @@
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
   }
   
   .book-card {

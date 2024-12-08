@@ -1,5 +1,33 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#topBar {
+
+}
+
+#topBar button {
+		margin: 1em;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 2em;
+}
+
+form * {
+	margin-bottom: 3px;
+}
+
+form input {
+	margin-left: 5px;
 }
 
 /* Global styles */
@@ -67,7 +95,7 @@ textarea {
   border: 1px solid #444;
   padding: 0.5rem;
   border-radius: 5px;
-  width: 100%;
+  
 }
 
 input:focus,
